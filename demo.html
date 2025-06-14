@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnWise AI - Student Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <link rel="stylesheet" href="assets/styles/shared.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🎓 LearnWise AI</div>
+            <div class="user-info">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <div class="tokens-remaining">
+                    <i data-feather="zap"></i> 3,450 tokens left
+                </div>
+                <div>Welcome back, Alex!</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-grid">
+            <!-- Assignment Workspace -->
+            <div class="card assignment-card">
+                <div class="assignment-header">
+                    <div>
+                        <div class="assignment-title">Essay: Climate Change Solutions</div>
+                        <div style="margin-top: 8px;">
+                            <span class="ai-level-badge">AI Level 2: Ideation Allowed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="tab-navigation">
+                    <button class="tab-btn active" onclick="switchTab('workspace')">AI Workspace</button>
+                    <button class="tab-btn" onclick="switchTab('analytics')">My Analytics</button>
+                </div>
+
+                <!-- Workspace Tab -->
+                <div id="workspace-tab">
+                    <!-- Alert for AI Guidelines -->
+                    <div class="alert">
+                        <strong>Assignment Guidelines:</strong> Use AI for brainstorming and ideation only. Final writing must be your own work.
+                    </div>
+
+                    <!-- Prompt Selector -->
+                    <div class="prompt-selector">
+                        <label for="prompt-select">Choose an AI interaction method:</label>
+                        <select id="prompt-select" class="prompt-dropdown" onchange="updatePromptPreview()">
+                            <option value="ideate">💡 Generate Ideas & Perspectives</option>
+                            <option value="research">🔍 Research Assistant</option>
+                            <option value="outline">📝 Structure & Outline Help</option>
+                            <option value="counterpoint">⚖️ Provide Counterarguments</option>
+                            <option value="custom">✏️ Custom Prompt (Will be reviewed)</option>
+                        </select>
+                        
+                        <div id="prompt-preview" class="prompt-preview">
+                            <strong>AI will help you:</strong> Brainstorm different perspectives on climate change solutions, focusing on economic, environmental, and social aspects. You'll evaluate and develop these ideas into your own arguments.
+                        </div>
+                    </div>
+
+                    <!-- AI Methods removed - now using dropdown only -->
+
+                    <!-- Chat Area -->
+                    <div class="chat-area" id="chat-area">
+                        <!-- Chat messages will be dynamically added here -->
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="input-area">
+                        <input type="text" class="message-input" placeholder="Ask for ideas about renewable energy solutions..." id="message-input">
+                        <button class="send-btn" onclick="sendMessage()">
+                            <i data-feather="send"></i> Send (5 tokens)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab -->
+                <div id="analytics-tab" class="hidden">
+                    <div class="analytics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">85%</div>
+                            <div class="metric-label">Learning Efficiency Score</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-value">12</div>
+                            <div class="metric-label">AI Interactions This Week</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-value">3.2k</div>
+                            <div class="metric-label">Tokens Used</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 64%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 24px; padding: 16px; background: #f8f9fa; border-radius: 8px;">
+                        <h4 style="margin-bottom: 12px;">Recent AI Usage Patterns</h4>
+                        <div style="font-size: 14px; color: #666;">
+                            <p>✅ Good: Using AI for brainstorming and research</p>
+                            <p>⚠️ Improvement: Try to write more original content before using AI</p>
+                            <p>📈 Progress: Your critical evaluation skills have improved 23% this month</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Token Usage -->
+                <div class="card usage-tracker">
+                    <h3 style="margin-bottom: 16px;">Daily Token Usage</h3>
+                    <div class="usage-circle">
+                        <div class="usage-text">1,550<br><small>Used</small></div>
+                    </div>
+                    <p style="color: #666; font-size: 14px;">1,550 of 5,000 tokens used today</p>
+                </div>
+
+                <!-- Guidelines -->
+                <div class="card guidelines">
+                    <h3>AI Usage Guidelines</h3>
+                    <div class="guideline-item">
+                        <i data-feather="check-circle" style="color: #4caf50; width: 16px;"></i>
+                        Use AI for brainstorming ideas
+                    </div>
+                    <div class="guideline-item">
+                        <i data-feather="check-circle" style="color: #4caf50; width: 16px;"></i>
+                        Ask for different perspectives
+                    </div>
+                    <div class="guideline-item">
+                        <i data-feather="x-circle" style="color: #f44336; width: 16px;"></i>
+                        Don't copy AI responses directly
+                    </div>
+                    <div class="guideline-item">
+                        <i data-feather="x-circle" style="color: #f44336; width: 16px;"></i>
+                        Don't let AI write your conclusions
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="card">
+                    <h3 style="margin-bottom: 16px;">This Week's Progress</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 14px;">Assignments Completed</span>
+                        <span style="font-weight: 600; color: #667eea;">4/5</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 14px;">Average Grade</span>
+                        <span style="font-weight: 600; color: #4caf50;">B+</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 14px;">Learning Streak</span>
+                        <span style="font-weight: 600; color: #ff9800;">12 days 🔥</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+
+        // Token management - sync navbar with daily usage
+        let totalDailyTokens = 5000;
+        let usedTokens = 1550;
+        let remainingTokens = totalDailyTokens - usedTokens;
+        let selectedMethod = 'paraphrase';
+        
+        // Update initial display
+        function updateTokenDisplays() {
+            // Update navbar
+            document.querySelector('.tokens-remaining').innerHTML = `<i data-feather="zap"></i> ${remainingTokens.toLocaleString()} tokens left`;
+            
+            // Update sidebar usage circle
+            const usagePercent = Math.floor((usedTokens / totalDailyTokens) * 100);
+            const usageCircle = document.querySelector('.usage-circle');
+            usageCircle.style.background = `conic-gradient(#667eea 0deg ${usagePercent * 3.6}deg, #e0e0e0 ${usagePercent * 3.6}deg 360deg)`;
+            
+            // Update usage text
+            const usageText = document.querySelector('.usage-text');
+            usageText.innerHTML = `${usedTokens.toLocaleString()}<br><small>Used</small>`;
+            
+            // Update description
+            const usageDescription = document.querySelector('.usage-tracker p');
+            usageDescription.textContent = `${usedTokens.toLocaleString()} of ${totalDailyTokens.toLocaleString()} tokens used today`;
+            
+            feather.replace();
+        }
+
+        function switchTab(tabName) {
+            // Add loading state
+            const activeTab = document.querySelector('.tab-btn.active');
+            if (activeTab) activeTab.style.opacity = '0.6';
+            
+            // Smooth transition effect
+            const currentTab = document.querySelector('[id$="-tab"]:not(.hidden)');
+            if (currentTab) {
+                currentTab.style.opacity = '0';
+                setTimeout(() => {
+                    currentTab.classList.add('hidden');
+                    
+                    // Show new tab
+                    const newTab = document.getElementById(tabName + '-tab');
+                    newTab.classList.remove('hidden');
+                    newTab.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        newTab.style.opacity = '1';
+                    }, 50);
+                }, 150);
+            } else {
+                // First load
+                document.getElementById('workspace-tab').classList.add('hidden');
+                document.getElementById('analytics-tab').classList.add('hidden');
+                document.getElementById(tabName + '-tab').classList.remove('hidden');
+            }
+            
+            // Update tab buttons with animation
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.opacity = '1';
+            });
+            event.target.classList.add('active');
+            
+            // Trigger analytics update if switching to analytics tab
+            if (tabName === 'analytics') {
+                updateAnalyticsData();
+            }
+        }
+        
+        function updateAnalyticsData() {
+            // Simulate real-time analytics updates
+            setTimeout(() => {
+                const efficiencyScore = Math.floor(Math.random() * 15) + 80; // 80-95%
+                const interactions = Math.floor(Math.random() * 8) + 10; // 10-18
+                const tokensUsed = (Math.random() * 1.5 + 2.5).toFixed(1); // 2.5-4.0k
+                
+                document.querySelector('.metric-value').textContent = efficiencyScore + '%';
+                document.querySelectorAll('.metric-value')[1].textContent = interactions;
+                document.querySelectorAll('.metric-value')[2].textContent = tokensUsed + 'k';
+                
+                // Update progress bars
+                document.querySelector('.progress-fill').style.width = efficiencyScore + '%';
+                document.querySelectorAll('.progress-fill')[1].style.width = (interactions / 20 * 100) + '%';
+                document.querySelectorAll('.progress-fill')[2].style.width = (parseFloat(tokensUsed) / 5 * 100) + '%';
+            }, 300);
+        }
+
+        function updatePromptPreview() {
+            const select = document.getElementById('prompt-select');
+            const preview = document.getElementById('prompt-preview');
+            
+            const prompts = {
+                'ideate': 'Brainstorm different perspectives on climate change solutions, focusing on economic, environmental, and social aspects. You\'ll evaluate and develop these ideas into your own arguments.',
+                'research': 'Find relevant information and sources on your topic. You\'ll need to verify and synthesize this information yourself.',
+                'outline': 'Help structure your essay with a logical flow. You\'ll develop each section with your own analysis and evidence.',
+                'counterpoint': 'Present opposing viewpoints to strengthen your argument. You\'ll need to address these counterarguments in your own words.',
+                'custom': 'Enter your own prompt. It will be automatically reviewed to ensure it promotes learning rather than just providing answers.'
+            };
+            
+            // Add smooth transition effect
+            preview.style.opacity = '0.5';
+            setTimeout(() => {
+                preview.innerHTML = `<strong>AI will help you:</strong> ${prompts[select.value]}`;
+                preview.style.opacity = '1';
+            }, 150);
+            
+            // Update AI assistant message based on dropdown selection
+            updateAIAssistantMessageFromDropdown(select.value);
+            
+        }
+        
+        function updateAIAssistantMessageFromDropdown(method) {
+            const chatArea = document.getElementById('chat-area');
+            
+            if (!chatArea) {
+                return;
+            }
+            
+            // Clear existing messages
+            chatArea.innerHTML = '';
+            
+            const aiMessages = {
+                'ideate': '💡 <strong>Ideation Mode Ready!</strong> Time to brainstorm! I\'ll help you generate creative ideas, explore multiple perspectives, and think outside the box about your climate change topic. What angle interests you most - economic impacts, technological solutions, social implications, or environmental effects?',
+                'research': '🔍 <strong>Research Assistant Activated!</strong> I\'ll help you find and organize relevant information for your topic. Share what you\'re researching and I\'ll guide you to credible sources and help you understand how to evaluate and synthesize the information you find.',
+                'outline': '📝 <strong>Structure & Outline Mode!</strong> Let\'s organize your ideas into a logical flow! I\'ll help you create a clear essay structure with strong arguments. What\'s your main thesis or topic, and what key points do you want to cover?',
+                'counterpoint': '⚖️ <strong>Counterargument Mode Engaged!</strong> I\'ll help you explore opposing viewpoints to strengthen your argument. Share your main position and I\'ll present alternative perspectives and potential counterarguments you should address.',
+                'custom': '✏️ <strong>Custom Prompt Mode!</strong> You can create your own learning-focused prompt here. Remember, I\'m designed to guide your thinking and understanding rather than provide direct answers. What specific learning goal do you have in mind?'
+            };
+            
+            // Get the message for the method
+            const messageText = aiMessages[method] || aiMessages['ideate'];
+            
+            // Add the new AI message
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'chat-message ai-message';
+            aiMessage.innerHTML = `<strong>AI Assistant:</strong> ${messageText}`;
+            chatArea.appendChild(aiMessage);
+            
+            // Smooth scroll to show the message
+            chatArea.scrollTop = chatArea.scrollHeight;
+            
+        }
+
+        function selectMethod(method) {
+            selectedMethod = method;
+            document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Add visual feedback with smooth transition
+            event.target.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.target.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Update chat area hint based on selected method
+            updateChatHint(method);
+            
+            // Update AI assistant message based on selected method
+            updateAIAssistantMessage(method);
+        }
+        
+        function updateAIAssistantMessage(method) {
+            const chatArea = document.getElementById('chat-area');
+            
+            if (!chatArea) {
+                return;
+            }
+            
+            // Clear existing messages
+            chatArea.innerHTML = '';
+            
+            const aiMessages = {
+                'paraphrase': '📝 <strong>Paraphrase Mode Activated!</strong> I\'ll help you rephrase complex ideas into simpler, clearer language. Share any difficult concept, technical term, or confusing passage and I\'ll break it down step-by-step. My goal is to help you truly understand, not just memorize!',
+                'ideate': '💡 <strong>Ideation Mode Ready!</strong> Time to brainstorm! I\'ll help you generate creative ideas, explore multiple perspectives, and think outside the box about your climate change topic. What angle interests you most - economic impacts, technological solutions, social implications, or environmental effects?',
+                'alternative': '🔄 <strong>Alternative Views Mode Engaged!</strong> I\'ll present opposing arguments and different perspectives to strengthen your critical thinking. Share your current position or argument, and I\'ll help you understand counterpoints and alternative viewpoints you should consider.'
+            };
+            
+            // Get the message for the method
+            const messageText = aiMessages[method] || aiMessages['paraphrase'];
+            
+            // Add the new AI message
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'chat-message ai-message';
+            aiMessage.innerHTML = `<strong>AI Assistant:</strong> ${messageText}`;
+            chatArea.appendChild(aiMessage);
+            
+            // Smooth scroll to show the message
+            chatArea.scrollTop = chatArea.scrollHeight;
+            
+        }
+        
+        function updateChatHint(method) {
+            const hints = {
+                'paraphrase': 'Ask me to help rephrase or explain concepts in simpler terms.',
+                'ideate': 'Let\'s brainstorm different ideas and perspectives on your topic.',
+                'alternative': 'I can help you explore opposing viewpoints and counterarguments.'
+            };
+            
+            const input = document.getElementById('message-input');
+            input.placeholder = hints[method] || 'Ask for ideas about renewable energy solutions...';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const chatArea = document.getElementById('chat-area');
+            const sendBtn = document.querySelector('.send-btn');
+            
+            if (input.value.trim() === '') return;
+            
+            // Add loading state to send button
+            const originalBtnText = sendBtn.innerHTML;
+            sendBtn.innerHTML = '<i data-feather="loader"></i> Sending...';
+            sendBtn.disabled = true;
+            feather.replace();
+            
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'chat-message user-message';
+            userMessage.innerHTML = `<strong>You:</strong> ${input.value}`;
+            chatArea.appendChild(userMessage);
+            
+            // Get context-aware response based on selected method
+            const response = getContextualResponse(input.value, selectedMethod);
+            
+            // Simulate AI response with realistic delay
+            setTimeout(() => {
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'chat-message ai-message';
+                aiMessage.innerHTML = `<strong>AI Assistant:</strong> ${response}`;
+                chatArea.appendChild(aiMessage);
+                chatArea.scrollTop = chatArea.scrollHeight;
+                
+                // Update token count with animation
+                const tokenCost = Math.floor(Math.random() * 5) + 3; // Random 3-7 tokens
+                animateTokenUpdate(tokenCost);
+                
+                // Reset send button
+                sendBtn.innerHTML = originalBtnText;
+                sendBtn.disabled = false;
+                feather.replace();
+            }, 1200 + Math.random() * 800); // Random delay 1.2-2s
+            
+            input.value = '';
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+        
+        function getContextualResponse(userInput, method) {
+            const responses = {
+                'paraphrase': [
+                    "I can help you rephrase that concept! Here's a clearer way to express it: [concept simplified]. Now, can you try explaining it back to me in your own words to make sure you understand?",
+                    "Let me break that down into simpler terms for you. The key idea is [simplified concept]. How would you apply this understanding to your essay?",
+                    "Here's another way to think about that topic: [alternative explanation]. What aspects would you like me to clarify further?"
+                ],
+                'ideate': [
+                    "Great question! Here are some different perspectives you might consider: 1) Economic angle: [economic aspect], 2) Environmental perspective: [environmental aspect], 3) Social impact: [social aspect]. Which of these interests you most?",
+                    "I can see several directions for your thinking: [idea 1], [idea 2], and [idea 3]. Let's explore one of these - which resonates with your assignment goals?",
+                    "Here are some brainstorming angles: [perspective 1], [perspective 2]. Now, what's your initial reaction to these ideas? Which one challenges your current thinking?"
+                ],
+                'alternative': [
+                    "That's an interesting point! Here's a counterargument to consider: [opposing view]. How might you address this opposing perspective in your work?",
+                    "I can present some alternative viewpoints: [alternative 1] and [alternative 2]. How do these different perspectives change your understanding of the issue?",
+                    "Here's another way to look at it: [different perspective]. What evidence would you need to evaluate which viewpoint is stronger?"
+                ]
+            };
+            
+            const methodResponses = responses[method] || responses['ideate'];
+            return methodResponses[Math.floor(Math.random() * methodResponses.length)];
+        }
+        
+        function animateTokenUpdate(cost) {
+            const tokenElement = document.querySelector('.tokens-remaining');
+            
+            // Update token counts
+            usedTokens += cost;
+            remainingTokens = totalDailyTokens - usedTokens;
+            
+            // Add flash animation
+            tokenElement.style.background = 'linear-gradient(135deg, #ff9800, #f57c00)';
+            setTimeout(() => {
+                updateTokenDisplays();
+                tokenElement.style.background = 'linear-gradient(135deg, #ff6b6b, #ee5a52)';
+            }, 300);
+        }
+
+        // Allow Enter key to send message
+        document.getElementById('message-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initialize UI enhancements
+        function initializeEnhancements() {
+            // Add smooth transitions to all interactive elements
+            document.querySelectorAll('.method-btn, .tab-btn, .send-btn').forEach(element => {
+                element.style.transition = 'all 0.2s ease';
+            });
+            
+            // Initialize method hint
+            updateChatHint('paraphrase');
+            
+            // Add focus effects to input
+            const messageInput = document.getElementById('message-input');
+            messageInput.addEventListener('focus', () => {
+                messageInput.style.borderColor = '#667eea';
+                messageInput.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.1)';
+            });
+            
+            messageInput.addEventListener('blur', () => {
+                messageInput.style.borderColor = '#e0e0e0';
+                messageInput.style.boxShadow = 'none';
+            });
+            
+            // Removed hover effects for demo page cards as requested
+        }
+        
+        // Initialize static token display (no automatic updates)
+        function initializeTokenDisplay() {
+            updateTokenDisplays();
+        }
+        
+        // Initialize default AI message
+        function initializeChat() {
+            const defaultMethod = document.getElementById('prompt-select').value;
+            updateAIAssistantMessageFromDropdown(defaultMethod);
+        }
+        
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeEnhancements();
+            initializeTokenDisplay();
+            initializeChat();
+        });
+        
+        // Call initialization immediately as well (in case DOM is already loaded)
+        initializeEnhancements();
+        initializeTokenDisplay();
+        initializeChat();
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnWise AI - Transform AI Learning for Every Student</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+    <link rel="stylesheet" href="assets/styles/shared.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🎓 LearnWise AI</div>
+            <div class="user-info">
+                <a href="about" class="nav-link">About</a>
+                <a href="demo" style="color: white; background: #667eea; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 500;">Try Demo</a>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="hero-title">Transform AI Learning for Every Student</h1>
+            <p class="hero-subtitle">
+                Structured, fair, and responsible AI tools that enhance learning without replacing critical thinking
+            </p>
+            <div class="button-group">
+                <a href="demo" class="cta-button">Try Demo Now</a>
+                <a href="about" class="secondary-button">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Benefits Section -->
+        <div class="benefits-section">
+            <h2 class="section-title">Why Choose LearnWise AI?</h2>
+            <p class="section-subtitle">
+                Empowering students with responsible AI tools that promote learning equity and critical thinking
+            </p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">Structured Learning</h3>
+                    <p class="benefit-description">
+                        Guided AI interactions that promote understanding through carefully designed prompts and educational frameworks, ensuring AI enhances rather than replaces learning.
+                    </p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚖️</div>
+                    <h3 class="benefit-title">Fair Access</h3>
+                    <p class="benefit-description">
+                        Token-based system ensures equal opportunities for all students regardless of economic background, leveling the playing field in AI-assisted education.
+                    </p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3 class="benefit-title">Responsible Use</h3>
+                    <p class="benefit-description">
+                        Built-in guidelines and monitoring prevent AI dependency while encouraging critical thinking, creativity, and genuine learning outcomes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo CTA Section -->
+        <div class="demo-cta-section">
+            <h2 class="demo-cta-title">Experience LearnWise AI</h2>
+            <p class="demo-cta-description">
+                Try our interactive demo to see how structured AI learning can transform your educational experience
+            </p>
+            <a href="demo" class="demo-cta-button">
+                <i data-feather="play-circle"></i>
+                Start Interactive Demo
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Developed by LearnWise Team | Built for Huawei Hackathon 2025</p>
+            <p style="margin-top: 8px; font-size: 14px; opacity: 0.8;">
+                Transforming education through responsible AI innovation
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add loading animation for demo buttons
+        document.querySelectorAll('a[href="demo"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i data-feather="loader"></i>Loading Demo...';
+                feather.replace();
+                
+                // Allow navigation to proceed
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    feather.replace();
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
