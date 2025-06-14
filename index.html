@@ -14,7 +14,7 @@
             <div class="logo">🎓 LearnWise AI</div>
             <div class="user-info">
                 <a href="about" class="nav-link">About</a>
-                <a href="demo" class="nav-demo-btn">Try Demo</a>
+                <a href="demo" style="color: white; background: #667eea; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 500;">Try Demo</a>
             </div>
         </div>
 
@@ -99,13 +99,20 @@
             });
         });
 
-        // Add loading animation for demo buttons
+        // Add loading animation for demo buttons with proper centering
         document.querySelectorAll('a[href="demo"]').forEach(button => {
             button.addEventListener('click', function(e) {
                 const originalText = this.innerHTML;
-                this.innerHTML = '<i data-feather="loader"></i>Loading Demo...';
+
+                // Set loading content with proper flex centering
+                this.innerHTML = `
+                    <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i data-feather="loader" style="animation: spin 1s linear infinite;"></i>
+                        Loading Demo...
+                    </span>
+                `;
                 feather.replace();
-                
+
                 // Allow navigation to proceed
                 setTimeout(() => {
                     this.innerHTML = originalText;
@@ -113,6 +120,14 @@
                 }, 100);
             });
         });
+
+        // Spin animation (optional if not already in your CSS)
+        const style = document.createElement('style');
+        style.innerHTML = `
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        `;
+        document.head.appendChild(style);
+
     </script>
 </body>
 </html>
